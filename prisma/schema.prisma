@@ -13,10 +13,13 @@ datasource db {
 
 model User {
   id        Int     @default(autoincrement()) @id
-  email     String  @unique
+  email     String?  @unique
   username  String  @unique
+  password  String  @db.VarChar(100)
+  token     String?
   name      String?
   posts     Post[]
+  @@map("users")
 }
 
 model Post {
@@ -25,4 +28,5 @@ model Post {
   author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?
   createdAt DateTime  @default(now())
+  @@map("posts")
 }
